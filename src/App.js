@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid } from 'semantic-ui-react'
 import './App.css';
 import Login from './components/Login';
 
@@ -33,9 +34,9 @@ export default class App extends Component {
     }
 
     return (
-      <div className="App">
+      <Grid container style={{ padding: '5em 0em' }}>
         { show_login_page }
-      </div>
+      </Grid>
     );
   }
 
