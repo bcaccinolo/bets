@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Grid } from 'semantic-ui-react'
+import _ from 'lodash';
+
 import './App.css';
 import Login from './components/Login';
 
 import firebase from './lib/firebase';
-import { authenticateUser } from './lib/users';
-
-
+import { authenticateUser, updateUserName } from './lib/users';
 
 export default class App extends Component {
 
@@ -14,28 +14,26 @@ export default class App extends Component {
     super(props);
     this.state = {
       status: 'not_authenticated', // 'not_authenticated', 'authenticated_first_time', 'authenticated'
-      user: undefined,
+      uid: undefined,
       name: undefined
     };
   }
 
   render() {
-    let show_login_page = (
+    let content = (
       <p className="App-intro">
       {this.state.name}
-      Loading app ...
+      Loading Pronostic app ...
     </p>
     )
 
     if (this.state.status === 'authenticated_first_time') {
-      show_login_page = (
-        <Login />
-      )
+      content = <Login onSubmit={this.onSubmit}/>
     }
 
     return (
       <Grid container style={{ padding: '5em 0em' }}>
-        { show_login_page }
+        { content }
       </Grid>
     );
   }
@@ -47,16 +45,24 @@ export default class App extends Component {
   // authentication callback to update the user state
   updateUserState = (snapshot) => {
     let status = 'not_authenticated';
-    if(snapshot.val().name === undefined) {
+    let name = '';
+    let uid = snapshot.key; // user uid
+
+    if((snapshot.val() === null) || (snapshot.val().name === undefined)) {
       status = 'authenticated_first_time';
     } else {
       status = 'authenticated';
+      name = snapshot.val().name;
     }
-    this.setState({
-      status: status,
-      uid: snapshot.val().uid,
-      name: snapshot.val().name
-    })
+    this.setState({ status: status, uid: uid, name: name });
   }
+
+  onSubmit = (loginState) => {
+    if (! _.isEmpty(loginState.name)) {
+      this.setState({name: loginState.name, status: 'authenticated'});
+      updateUserName(firebase, this.state.uid, loginState.name);
+    }
+  }
+
 
 }

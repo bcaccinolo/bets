@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 
 export default class BaseComponent extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ''
+    };
+  }
+
   render() {
     const content = (
     <div className='login-form' style={{margin: 'auto'}}>
@@ -26,20 +34,25 @@ export default class BaseComponent extends Component {
             </Header>
 
             <Form size='large'>
-
               <Segment stacked>
-                <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' />
-
-                <Button color='teal' fluid size='large'>
-                  Login
-                </Button>
+                <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' value={this.state.name} onChange={this.onInputChange} />
+                <Button color='teal' fluid size='large' onClick={this.onSubmit}> Login </Button>
               </Segment>
             </Form>
+
           </Grid.Column>
         </Grid>
       </div>
     );
     return content;
+  }
+
+  onInputChange = (event) => {
+    this.setState({name: event.target.value});
+   }
+
+  onSubmit = (e) => {
+    this.props.onSubmit(this.state);
   }
 }
 
