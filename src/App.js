@@ -4,6 +4,7 @@ import _ from 'lodash';
 
 import './App.css';
 import Login from './components/Login';
+import Matches from './components/Matches';
 
 import firebase from './lib/firebase';
 import { authenticateUser, updateUserName } from './lib/users';
@@ -20,15 +21,11 @@ export default class App extends Component {
   }
 
   render = () => {
-    let content = (
-      <p className="App-intro">
-      {this.state.name}
-      Loading Pronostic app ...
-    </p>
-    )
-
+    let content = 'Loading app ...'
     if (this.state.status === 'authenticated_first_time') {
       content = <Login onSubmit={this.onSubmit}/>
+    } else if (this.state.status === 'authenticated') {
+      content = <Matches firebase={firebase} userId={this.state.uid} />
     }
 
     return (
