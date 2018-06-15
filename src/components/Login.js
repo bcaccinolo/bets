@@ -10,37 +10,27 @@ export default class BaseComponent extends Component {
     };
   }
 
-  render() {
+  render = () => {
     const content = (
-    <div className='login-form' style={{margin: 'auto'}}>
-        {/*
-          Heads up! The styles below are necessary for the correct render of this example.
-          You can do same with CSS, the main idea is that all the elements up to the `Grid`
-          below must have a height of 100%.
-        */}
-        <style>{`
-          body > div,
-          body > div > div,
-          body > div > div > div.login-form {
-            height: 100%;
-          }
-        `}</style>
+      <div className='login-form' style={{margin: 'auto'}}>
         <Grid textAlign='center' style={{ height: '100%'}} verticalAlign='middle'>
 
           <Grid.Column style={{ maxWidth: 450 }}>
+
             <Header as='h2' color='teal' textAlign='center'>
              Log-in to your account
              Enter a name to entre the Synbioz Worldcup site !
             </Header>
 
             <Form size='large'>
-              <Segment stacked>
+              <Segment>
                 <Form.Input fluid icon='user' iconPosition='left' placeholder='Name' value={this.state.name} onChange={this.onInputChange} />
                 <Button color='teal' fluid size='large' onClick={this.onSubmit}> Login </Button>
               </Segment>
             </Form>
 
           </Grid.Column>
+
         </Grid>
       </div>
     );

@@ -19,7 +19,7 @@ export default class App extends Component {
     };
   }
 
-  render() {
+  render = () => {
     let content = (
       <p className="App-intro">
       {this.state.name}
@@ -38,7 +38,7 @@ export default class App extends Component {
     );
   }
 
-  componentDidMount() {
+  componentDidMount= () => {
     authenticateUser(firebase, this.updateUserState);
   }
 
