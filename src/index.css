@@ -3,3 +3,15 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+button.ui.selected {
+  border: 2px solid red;
+}
+
+.recharts-wrapper {
+  margin:auto;
+}
+
+.buttons {
+  text-align: center;
+}

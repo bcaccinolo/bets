@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Card } from 'semantic-ui-react'
+
 import {getMatches} from '../lib/matches';
 import Match from './Match';
 
@@ -12,25 +14,15 @@ export default class BaseComponent extends Component {
   }
 
   render = () => {
-    console.log('Matches props');
-    console.log(this.props);
+    let matchComponents = this.state.matches.map((match, index) => (
+      <Match firebase={this.props.firebase} matchId={index} match={match} userId={this.props.userId} />
+    ));
 
-    let matchComponents = this.state.matches.map((match, index) => {
-      return (
-        <li key={index}>
-          <Match firebase={this.props.firebase} matchId={index} match={match} userId={this.props.userId} />
-        </li>
-      )
-    });
-
-
-    const content = (
-      <div>
-        la liste des matchs:
+    return (
+      <Card.Group>
         { matchComponents }
-      </div>
-    );
-    return content;
+      </Card.Group>
+    )
   }
 
   componentDidMount = () => {
@@ -41,6 +33,4 @@ export default class BaseComponent extends Component {
   updateMatchesList = (snapshot) => {
     this.setState({matches: snapshot.val()});
   }
-
 }
-

@@ -59,8 +59,13 @@ export const countBet = (firebase, matchId, updateCallback) => {
 // if the bet is not undefined, it updates the state
 export const listenMatchUserBet = (firebase, matchId, userId, setState) => {
   const ref = 'bets/matches/' + matchId + '/user/' + userId + '/bet/';
+  console.log('the ref is ' + ref);
+
   firebase.database().ref(ref).on('value', (snapshot) => {
     const bet = snapshot.val();
+    console.log('match user bet');
+    console.log(bet);
+
     if (bet !== undefined) {
       setState({ userBet: bet })
     }

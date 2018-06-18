@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react'
 import _ from 'lodash';
 
 import './App.css';
+import TopBar from './components/TopBar';
 import Login from './components/Login';
 import Matches from './components/Matches';
 
@@ -29,10 +30,12 @@ export default class App extends Component {
     }
 
     return (
-      <Grid container style={{ padding: '5em 0em' }}>
+      <div>
+      <TopBar />
+      <Grid container style={{ marginTop: '5px', padding: '5em 0em' }}>
         { content }
       </Grid>
-    );
+      </div>    );
   }
 
   componentDidMount= () => {
