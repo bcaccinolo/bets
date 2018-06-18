@@ -6,7 +6,7 @@ export default () => (
     <Menu fixed='top' inverted>
       <Container>
         <Menu.Item as='a' header>
-          <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
+          <Image size='mini' src='/bets/build/logo.png' style={{ marginRight: '1.5em' }} />
           Symbioz Worldcup!
         </Menu.Item>
       </Container>
