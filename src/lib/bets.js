@@ -19,6 +19,18 @@ export const listenMatchBetChanges = (firebase, matchId) => {
   });
 }
 
+// Sets a listener on the bets per match.
+// When a bet is done, it triggers the update of /matches/ID/bets and updates the Graph's state
+export const listenMatchBetChangesForGraph = (firebase, matchId, graphSetState) => {
+  const ref = '/matches/' + matchId + '/bets/';
+  firebase.database().ref(ref).on('value', (snapshot) => {
+    const values = _.values(snapshot.val());
+    graphSetState({
+      data:  [ { value: values[0] }, { value: values[1] }, { value: values[2] } ]
+    });
+  });
+}
+
 // Triggers the recalculation and update /match/ID/bets/
 export const updateMatchBets = (firebase, matchId) => {
   countBet(firebase, matchId, (firebase, matchId, matchBets) => {
@@ -43,3 +55,14 @@ export const countBet = (firebase, matchId, updateCallback) => {
   })
 }
 
+// Listen for the change of a bet of a specific user on a specific match
+// if the bet is not undefined, it updates the state
+export const listenMatchUserBet = (firebase, matchId, userId, setState) => {
+  const ref = 'bets/matches/' + matchId + '/user/' + userId + '/bet/';
+  firebase.database().ref(ref).on('value', (snapshot) => {
+    const bet = snapshot.val();
+    if (bet !== undefined) {
+      setState({ userBet: bet })
+    }
+  });
+}

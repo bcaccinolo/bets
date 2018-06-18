@@ -8,12 +8,12 @@ export default class BaseComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+
+    console.log('Bet props ');
+    console.log(this.props);
   }
 
   render = () => {
-    console.log('Bet props ');
-    console.log(this.props);
-
     const content = (
       <div>
         Bet Block
@@ -25,21 +25,17 @@ export default class BaseComponent extends Component {
     return content;
   }
 
-  componentDidMount = () => {
-   }
+  componentDidMount = () => { }
 
   submitWinFirst = () => {
-    console.log('submit 1');
     betOnMatch(this.props.firebase, this.props.matchId, this.props.userId, '1');
   }
 
   submitEquality = () => {
-    console.log('submit N');
     betOnMatch(this.props.firebase, this.props.matchId, this.props.userId, 'N');
   }
 
   submitWinSecond = () => {
-    console.log('submit 2');
     betOnMatch(this.props.firebase, this.props.matchId, this.props.userId, '2');
   }
 
