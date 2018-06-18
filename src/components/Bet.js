@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'semantic-ui-react'
 
-import { betOnMatch } from '../lib/matches';
+import { betOnMatch } from '../lib/bets';
 
 export default class BaseComponent extends Component {
 
@@ -26,7 +26,7 @@ export default class BaseComponent extends Component {
   }
 
   componentDidMount = () => {
-  }
+   }
 
   submitWinFirst = () => {
     console.log('submit 1');
